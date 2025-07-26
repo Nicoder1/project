@@ -1,0 +1,175 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Login & NPS Desk</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background-color: #555151;
+      margin: 0;
+      padding: 20px;
+      text-align: center;
+    }
+    .section {
+      display: none;
+    }
+    input, button {
+      margin: 10px;
+      padding: 10px;
+      width: 250px;
+      font-size: 16px;
+    }
+    button {
+      background-color: #1bb423;
+      color: white;
+      border: none;
+      cursor: pointer;
+    }
+    button:hover {
+      background-color: #45a049;
+    }
+    a {
+      color: #195da5;
+      cursor: pointer;
+    }
+
+    .student {
+      display: flex;
+      align-items: center;
+      background-color: white;
+      margin: 20px auto;
+      padding: 20px;
+      border-radius: 10px;
+      width: 80%;
+      box-shadow: 0 0 10px rgba(0,0,0,0.1);
+    }
+    .student img {
+      width: 250px;
+      height: 300px;
+      margin-right: 20px;
+      border-radius: 10px;
+    }
+    .student-details {
+      text-align: left;
+    }
+  </style>
+</head>
+<body>
+
+  <!-- 🔐 Login Section -->
+  <div id="loginSection" class="section">
+    <h2>Login</h2>
+    <input type="text" id="loginUsername" placeholder="Enter username"><br>
+    <input type="password" id="loginPassword" placeholder="Enter password"><br>
+    <button onclick="login()">Login</button>
+    <p>Don't have an account? <a onclick="showSection('registerSection')">Register here</a></p>
+  </div>
+
+  <!-- 📝 Register Section -->
+  <div id="registerSection" class="section">
+    <h2>Register</h2>
+    <input type="text" id="registerUsername" placeholder="Create username"><br>
+    <input type="password" id="registerPassword" placeholder="Create password"><br>
+    <button onclick="register()">Register</button>
+    <p>Already have an account? <a onclick="showSection('loginSection')">Login here</a></p>
+  </div>
+
+  <!-- 🏠 NPS DESK Home Section -->
+  <div id="homeSection" class="section">
+    <h1>NPS DESK</h1>
+    <p style="font-size:20px;">List of Students</p>
+    <hr><br>
+
+    <div class="student">
+      <img src="photo.jpg" alt="Nijam">
+      <div class="student-details">
+        <h2>Name: Nijam</h2>
+        <h2>Class: 7th</h2>
+        <h2>Hobbies: Reading, Drawing</h2>
+        <p><a href="https://en.wikipedia.org/wiki/Nizam_(title)">More About Nizam</a></p>
+      </div>
+    </div>
+
+    <div class="student">
+      <img src="photo.jpg" alt="Sombher">
+      <div class="student-details">
+        <h2>Name: Somber</h2>
+        <h2>Class: 7th</h2>
+        <h2>Hobbies: Football, Singing</h2>
+        <p><a href="https://www.vocabulary.com/dictionary/somber">More About Sambher</a></p>
+      </div>
+    </div>
+
+    <div class="student">
+      <img src="photo.jpg" alt="Priyanshu">
+      <div class="student-details">
+        <h2>Name: Priyanshu</h2>
+        <h2>Class: 7th</h2>
+        <h2>Hobbies: Cricket, Dancing</h2>
+        <p><a href="https://www.onlymyhealth.com/baby-names/meaning-of-name-priyanshu-1427780118">More About Priyanshu</a></p>
+      </div>
+    </div>
+
+    <div class="student">
+      <img src="photo.jpg" alt="Suryakant">
+      <div class="student-details">
+        <h2>Name: Suryakant</h2>
+        <h2>Class: 7th</h2>
+        <h2>Hobbies: Reading, Chess</h2>
+        <p><a href="https://www.timesnownews.com/baby-names/meaning-of-suryakant">More About Suryakant</a></p>
+      </div>
+    </div>
+
+    <br>
+    <button onclick="logout()">Logout</button>
+  </div>
+
+  <!-- 🌐 JavaScript Logic -->
+  <script>
+    function showSection(sectionId) {
+      document.getElementById("loginSection").style.display = "none";
+      document.getElementById("registerSection").style.display = "none";
+      document.getElementById("homeSection").style.display = "none";
+      document.getElementById(sectionId).style.display = "block";
+    }
+
+    function register() {
+      const user = document.getElementById("registerUsername").value.trim();
+      const pass = document.getElementById("registerPassword").value;
+
+      if (!user || !pass) {
+        alert("Please enter both username and password.");
+        return;
+      }
+
+      localStorage.setItem("storedUsername", user);
+      localStorage.setItem("storedPassword", pass);
+
+      alert("✅ Registered successfully! Now login.");
+      showSection("loginSection");
+    }
+
+    function login() {
+      const inputUser = document.getElementById("loginUsername").value.trim();
+      const inputPass = document.getElementById("loginPassword").value;
+
+      const storedUser = localStorage.getItem("storedUsername");
+      const storedPass = localStorage.getItem("storedPassword");
+
+      if (inputUser === storedUser && inputPass === storedPass) {
+        showSection("homeSection");
+      } else {
+        alert("❌ Incorrect username or password.");
+      }
+    }
+
+    function logout() {
+      showSection("loginSection");
+    }
+
+    // Show login first
+    showSection("loginSection");
+  </script>
+
+</body>
+</html>
